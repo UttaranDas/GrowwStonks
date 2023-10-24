@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import axios from "axios";
+import Image from "next/image";
 
 const Card = (props) => {
   const data = props.data;
@@ -17,7 +18,7 @@ const Card = (props) => {
     <div className="w-60 h-60 border border-gray-300 rounded-md p-4 flex-col text-left">
       <div className="w-16 h-16 rounded-full flex items-center overflow-hidden">
         {/* Set a fixed width and height, and use rounded-full for a circular profile picture */}
-        <img
+        <Image
           src="groww-logo-light.svg"
           alt="company img"
           className="w-full h-full object-cover object-left"

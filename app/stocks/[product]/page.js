@@ -4,6 +4,7 @@ import axios from "axios";
 import PrimarySearchAppBar from "../../components/Navbar";
 import StockChart from "../../components/Graph";
 import Head from "next/head";
+import Image from "next/image";
 
 const Products = ({params}) => {
   const { symbol } = params.product;
@@ -45,7 +46,7 @@ const Products = ({params}) => {
         <div className="flex flex-row justify-between">
           <div>
             {/* <img src={`https://logo.clearbit.com/${data.name}.com`} alt={data.name} /> */}
-            <img src={`https://logo.clearbit.com/ibm.com`} alt="IBM" />
+            <Image src={`https://logo.clearbit.com/ibm.com`} alt="IBM" />
             <h1>{data.Name}</h1>
             <p>
               {data.Symbol}, {data.AssetType}
