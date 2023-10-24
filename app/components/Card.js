@@ -8,11 +8,11 @@ const Card = (props) => {
   const data = props.data;
 
   const [companyName, setCompanyName] = useState("");
-  useEffect(() => {
-    axios.get(`/api/tickerSearch?keywords=tesco`).then((res) => {
-      setCompanyName(res.data.name);
-    });
-  }, []); // Re-run when the ticker changes
+  // useEffect(() => {
+  //   axios.get(`/api/tickerSearch?keywords=tesco`).then((res) => {
+  //     setCompanyName(res.data.name);
+  //   });
+  // }, []); // Re-run when the ticker changes
 
   return (
     <div className="w-60 h-60 border border-gray-300 rounded-md p-4 flex-col text-left">
@@ -21,6 +21,8 @@ const Card = (props) => {
         <Image
           src="groww-logo-light.svg"
           alt="company img"
+          width={64}
+          height={64}
           className="w-full h-full object-cover object-left"
         />
       </div>

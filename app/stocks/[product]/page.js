@@ -1,25 +1,32 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import PrimarySearchAppBar from "../../components/Navbar";
 import StockChart from "../../components/Graph";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-const Products = ({params}) => {
-  const { symbol } = params.product;
+const Products = ({ params }) => {
+  const symbol = params.product || TESCO;
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(); // Error state
-
+  
   useEffect(() => {
-    axios
-      .get(
-        // `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=demo`
-        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo`
-      )
-      .then((res) => {
-        setData(res.data);
+    fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${process.env.API_KEY}`)
+    // fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("page data", data);
+        if (data["Error Message"] || data=={}) {
+          throw new Error("Data not available");
+        }
+        setData(data);
         setLoading(false); // Set loading to false once the data is available
       })
       .catch((err) => {
@@ -36,6 +43,7 @@ const Products = ({params}) => {
     return <p>Error: {error.message}</p>;
   }
 
+
   return (
     <>
       <Head>
@@ -45,8 +53,7 @@ const Products = ({params}) => {
       <div className="mx-52 my-10">
         <div className="flex flex-row justify-between">
           <div>
-            {/* <img src={`https://logo.clearbit.com/${data.name}.com`} alt={data.name} /> */}
-            <Image src={`https://logo.clearbit.com/ibm.com`} alt="IBM" />
+            <Image width={100} height={100} src={`https://logo.clearbit.com/ibm.com`} alt="IBM" />
             <h1>{data.Name}</h1>
             <p>
               {data.Symbol}, {data.AssetType}
@@ -69,7 +76,7 @@ const Products = ({params}) => {
             <p>52 week low</p>
             <h2>{data["52WeekLow"]}</h2>
           </div>
-          
+
           <div>
             <p>52 week high</p>
             <h2>{data["52WeekHigh"]}</h2>

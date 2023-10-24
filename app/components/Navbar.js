@@ -16,6 +16,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Search from './Search';
+import Link from 'next/link';
+import Image from 'next/image';
 
 // const Search = styled('div')(({ theme }) => ({
 //   position: 'relative',
@@ -156,77 +158,104 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            GrowwStonks
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="What are you looking for today?"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="wallet" color="inherit">
-                <AccountBalanceWalletIcon />
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+    // <Box sx={{ flexGrow: 1 }}>
+    //   <AppBar position="static">
+    //     <Toolbar>
+    //       <IconButton
+    //         size="large"
+    //         edge="start"
+    //         color="inherit"
+    //         aria-label="open drawer"
+    //         sx={{ mr: 2 }}
+    //       >
+    //         <MenuIcon />
+    //       </IconButton>
+    //       <Typography
+    //         variant="h6"
+    //         noWrap
+    //         component="div"
+    //         sx={{ display: { xs: 'none', sm: 'block' } }}
+    //       >
+    //         GrowwStonks
+    //       </Typography>
+    //       <Search>
+    //         <SearchIconWrapper>
+    //           <SearchIcon />
+    //         </SearchIconWrapper>
+    //         <StyledInputBase
+    //           placeholder="What are you looking for today?"
+    //           inputProps={{ 'aria-label': 'search' }}
+    //         />
+    //       </Search>
+    //       <Box sx={{ flexGrow: 1 }} />
+    //       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+    //         <IconButton size="large" aria-label="wallet" color="inherit">
+    //             <AccountBalanceWalletIcon />
+    //         </IconButton>
+    //         <IconButton
+    //           size="large"
+    //           aria-label="show 17 new notifications"
+    //           color="inherit"
+    //         >
+    //           <Badge badgeContent={17} color="error">
+    //             <NotificationsIcon />
+    //           </Badge>
+    //         </IconButton>
+    //         <IconButton
+    //           size="large"
+    //           edge="end"
+    //           aria-label="account of current user"
+    //           aria-controls={menuId}
+    //           aria-haspopup="true"
+    //           onClick={handleProfileMenuOpen}
+    //           color="inherit"
+    //         >
+    //           <AccountCircle />
+    //         </IconButton>
+    //       </Box>
+    //       <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+    //         <IconButton
+    //           size="large"
+    //           aria-label="show more"
+    //           aria-controls={mobileMenuId}
+    //           aria-haspopup="true"
+    //           onClick={handleMobileMenuOpen}
+    //           color="inherit"
+    //         >
+    //           <MoreIcon />
+    //         </IconButton>
+    //       </Box>
+    //     </Toolbar>
+    //   </AppBar>
+    //   {renderMobileMenu}
+    //   {renderMenu}
+    // </Box>
+
+    
+    <>
+      <nav className="bg-gray-900 shadow-lg">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 justify-between">
+            <Link href="/" className='flex flex-row'>
+              <div className="flex flex-shrink-0 items-center text-4xl font-bold text-white py-2">
+                GrowwStonks
+              </div>
+            </Link>
+            <Search />
+            <div className="flex items-center">
+              <div className="hidden md:block">
+                  <Link
+                    href="/explore"
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-100 hover:bg-gray-700 hover:text-gray-100"
+                  >
+                    explore
+                  </Link>                 
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }

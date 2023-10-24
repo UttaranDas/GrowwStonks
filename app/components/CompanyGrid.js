@@ -22,14 +22,13 @@ export default function CompanyGrid(props) {
       const apiResponse = await fetch(`/api/${route}?page=${pageNum}`);
       const data = await apiResponse.json();
       const companies = data[`${route}`];
-      console.log("data", data, data[`${route}`]);
+      // console.log("data", data, data[`${route}`]);
 
       if (companies?.length === 0) {
         setHasMore(false); // No more data to load
       } else {
         setCompanies([...companies, ...companies]);
         setPage(pageNum + 1);
-        console.log(pageNum);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -84,14 +83,14 @@ export default function CompanyGrid(props) {
           </div>
         </InfiniteScroll>
         {/* {initialLoadComplete || ( */}
-          <button
+          {/* <button
             onClick={() => {
               fetchMoreData(page);
               setInitialLoadComplete(true);
             }}
           >
             Load More
-          </button>
+          </button> */}
         {/* )} */}
       </div>
     </>

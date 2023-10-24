@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
@@ -8,19 +9,17 @@ const Search = () => {
   const handleInputChange = async (e) => {
     const inputValue = e.target.value.trim();
     setSearchQuery(inputValue);
-
+    console.log("inputValue", inputValue);
     // Fetch products from the server based on search query
     if (inputValue.length > 0) {
       console.log("working.....");
       await axios
-        // .get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputValue}&apikey=demo`)
-        .get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo`)
+        .get(`/api/tickerSearch?keywords=${inputValue}`)
         .then((res) => {
-          console.log(res.data);
-          setSuggestions(res.data);
+          console.log("data jo mila", res.data);
+          console.log("ye mila", res.data.name);
+          setSuggestions(res.data.name);
         });
-      //   const products = await response.json();
-      //   setSuggestions(products);
     } else {
       setSuggestions([]);
     }
@@ -30,7 +29,7 @@ const Search = () => {
     <div className="relative z-50 mx-5">
       <input
         type="text"
-        className="my-3 block w-full appearance-none rounded-full bg-gray-200 py-2 px-10 pl-10 align-top leading-normal focus:border-gray-500 focus:bg-white focus:outline-none"
+        className="my-3 block w-full appearance-none text-gray-600 rounded-full bg-gray-200 py-2 px-10 pl-10 align-top leading-normal focus:border-gray-500 focus:bg-white focus:outline-none"
         placeholder="Search"
         value={searchQuery}
         onChange={handleInputChange}
@@ -55,13 +54,13 @@ const Search = () => {
           className="bg-white flex flex-col border p-2 rounded-xl mt-4"
         >
           {suggestions.map((product, key) => (
-            <Link href={`/stocks/${product.name}`} passHref>
-            <li
-              className="hover:bg-black hover:text-white p-2 rounded-xl"
-              key={key}
-            >
-              {product.name}
-            </li>
+            <Link href={`/stocks/${product["2. name"]}`} key={product["1. symbol"]} passHref>
+              <li
+                className="hover:bg-black hover:text-white p-2 rounded-xl"
+                key={key}
+              >
+                {product["2. name"]}
+              </li>
             </Link>
           ))}
         </ul>

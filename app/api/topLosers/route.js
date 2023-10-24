@@ -8,11 +8,13 @@ export async function GET(req, res) {
   const offset = (page - 1) * limit;
 
   try {
-    // const apiResponse = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${apiKey}`);
-    const apiResponse  = await fetch(
-      `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo`
+    const apiResponse = await fetch(
+      `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${apiKey}`
     );
-    const apiData = await apiResponse .json();
+    // const apiResponse  = await fetch(
+    //   `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo`
+    // );
+    const apiData = await apiResponse.json();
 
     // Check if 'top_losers' is present in the API response
     if (!apiData.top_losers) {
