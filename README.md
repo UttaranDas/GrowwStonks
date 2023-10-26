@@ -7,6 +7,7 @@
     <li>Product page shows description and basic informations</li>
     <li>A line chart using chart.js</li>
     <li>A navbar that is available throughout the app, can be used to search for stocks/etfs</li>
+    <li>Cached API responses with expiration (revalidating in 5 minutes)</li>
 </ul>
 
 <strong>Note:</strong>

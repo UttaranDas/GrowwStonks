@@ -1,14 +1,11 @@
 'use client';
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import CompanyGrid from "../components/CompanyGrid";
-import axios from "axios";
 import Navbar from "../components/Navbar";
 import Head from "next/head";
-// import data from './data/data';
 
 const CustomTabPanel = (props) => {
   const { children, value, index, ...other } = props;

@@ -6,10 +6,9 @@ export async function GET(req, res) {
   const symbol = searchParams.get("symbol") || "IBM";
 
   try {
-    const response = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`);
-    // const response = await fetch(
-    //   `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo`
-    // );
+    const response = await fetch(
+      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`
+    );
     const apiData = await response.json();
     return new Response(
       JSON.stringify({ globalQuote: apiData["Global Quote"] })

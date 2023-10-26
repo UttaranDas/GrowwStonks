@@ -1,21 +1,22 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
 import PrimarySearchAppBar from "../../components/Navbar";
 import StockChart from "../../components/Graph";
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 const Products = ({ params }) => {
-  const symbol = params.product || TESCO;
+  const symbol = params.product || "IBM";
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(); // Error state
   
   useEffect(() => {
-    fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${process.env.API_KEY}`)
-    // fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo`)
+    fetch(`../api/overview?symbol=${symbol}`, {
+      next: { revalidate: 300 },
+    })
       .then((response) => {
+        console.log(response);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -23,7 +24,7 @@ const Products = ({ params }) => {
       })
       .then((data) => {
         console.log("page data", data);
-        if (data["Error Message"] || data=={}) {
+        if (data["Error Message"] || data == {}) {
           throw new Error("Data not available");
         }
         setData(data);
@@ -43,7 +44,6 @@ const Products = ({ params }) => {
     return <p>Error: {error.message}</p>;
   }
 
-
   return (
     <>
       <Head>
@@ -53,7 +53,12 @@ const Products = ({ params }) => {
       <div className="mx-52 my-10">
         <div className="flex flex-row justify-between">
           <div>
-            <Image width={100} height={100} src={`https://logo.clearbit.com/ibm.com`} alt="IBM" />
+            <Image
+              width={100}
+              height={100}
+              src={`https://logo.clearbit.com/ibm.com`}
+              alt="IBM"
+            />
             <h1>{data.Name}</h1>
             <p>
               {data.Symbol}, {data.AssetType}
@@ -64,7 +69,7 @@ const Products = ({ params }) => {
           <div></div>
         </div>
 
-        <StockChart />
+        <StockChart symbol={symbol}/>
 
         <div>
           <h1>About section</h1>
