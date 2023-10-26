@@ -1,7 +1,7 @@
 // pages/api/top-losers.js
 
 export async function GET(req, res) {
-  const apiKey = "demo";
+  const apiKey = process.env.API_KEY || "demo";
   const { searchParams } = new URL(req.url);
   const symbol = searchParams.get("symbol") || "IBM";
 

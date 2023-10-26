@@ -6,10 +6,8 @@ export async function GET(req, res) {
   const { searchParams } = new URL(req.url);
     const keywords = searchParams.get("keywords") || "IBM";
     const apiKey = process.env.API_KEY || 'demo';
-    console.log("keywords", keywords);
     try {
       const apiResponse = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keywords}&apikey=${apiKey}}`);
-      // const apiResponse = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo`);
       const apiData = await apiResponse.json();
       const name = apiData.bestMatches;
       return new Response(JSON.stringify({ name: name }));

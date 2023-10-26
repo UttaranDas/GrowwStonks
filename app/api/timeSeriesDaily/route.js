@@ -1,7 +1,7 @@
 export async function GET(req, res) {
   const { searchParams } = new URL(req.url);
-  // const symbol = searchParams.get("symbol") || "IBM";
-  const symbol = "IBM";
+  const symbol = searchParams.get("symbol") || "IBM";
+  // const symbol = "IBM";
   const apiKey = process.env.API_KEY || "demo";
   console.log("symbol", symbol, "apiKey", apiKey);
   try {

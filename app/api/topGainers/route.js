@@ -11,9 +11,6 @@ export async function GET(req, res) {
     const apiResponse = await fetch(
       `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${apiKey}`
     );
-    // const apiResponse = await fetch(
-    //   `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo`
-    // );
     const apiData = await apiResponse.json();
 
     if (!apiData.top_gainers) {
