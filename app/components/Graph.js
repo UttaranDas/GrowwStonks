@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import next from "next";
 
 const StockChart = (params) => {
   const symbol = params.symbol || "IBM";
@@ -12,7 +10,8 @@ const StockChart = (params) => {
   const [trim5, setTrim5] = useState({});
   const [trim10, setTrim10] = useState({});
   const [trim50, setTrim50] = useState({});
-  const [showData, setShowData] = useState({});
+  const [trimAllTime, setTrimAllTime] = useState({});
+  const [selectedButton, setSelectedButton] = useState(4);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +49,7 @@ const StockChart = (params) => {
         };
 
         setStockData(chartData);
-        setShowData(chartData);
+        setTrimAllTime(chartData);
 
         // Calculate the start date for 5 years, 10 years, and 50 years ago
         const currentDate = new Date();
@@ -70,11 +69,11 @@ const StockChart = (params) => {
             parseFloat(timeSeriesData[date]["4. close"])
           );
           return {
-            labels: trimmedDates.reverse(),
+            labels: trimmedDates,
             datasets: [
               {
                 label: "IBM Stock Price",
-                data: trimmedPrices.reverse(),
+                data: trimmedPrices,
                 fill: false,
                 borderColor: "blue",
                 pointRadius: 0,
@@ -103,33 +102,85 @@ const StockChart = (params) => {
     <>
       <div>
         <Line
-          data={showData}
+          data={stockData}
           options={{ plugins: { legend: { display: false } } }}
         />
       </div>
-      <div className="flex flex-row">
+      {/* <div className="flex flex-row">
         <button
-          onClick={() => setShowData(trim5)}
+          onClick={() => setStockData(trim5)}
           className="mx-0.5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {" "}
           5y{" "}
         </button>
         <button
-          onClick={() => setShowData(trim10)}
+          onClick={() => setStockData(trim10)}
           className="mx-0.5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {" "}
           10y{" "}
         </button>
         <button
-          onClick={() => setShowData(trim50)}
+          onClick={() => setStockData(trim50)}
           className="mx-0.5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {" "}
           50y{" "}
         </button>
+        <button
+          onClick={() => setStockData(trimAllTime)}
+          className="mx-0.5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          {" "}
+          All time{" "}
+        </button>
+      </div> */}
+
+      <div class="inline-flex rounded-md shadow-sm" role="group">
+        <button
+          type="button"
+          onClick={() => {setStockData(trim5); setSelectedButton(1); console.log(selectedButton);}}
+          class={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg 
+          hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 
+          focus:text-blue-700 dark:bg-${selectedButton!=1 ? "gray" : "red"}-700 dark:border-gray-600 dark:text-white dark:hover:text-white 
+          dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white`}>
+          5y
+        </button>
+        <button
+          type="button"
+          onClick={() => {setStockData(trim10); setSelectedButton(2); console.log(selectedButton);}}
+          class={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 
+          hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 
+          focus:text-blue-700 dark:bg-${selectedButton!=2 ? "gray" : "red"}-700 dark:border-gray-600 dark:text-white dark:hover:text-white 
+          dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white`}
+        >
+          10y
+        </button>
+        <button
+          type="button"
+          onClick={() => {setStockData(trim50); setSelectedButton(3); console.log(selectedButton);}}
+          class={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 
+          hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-${selectedButton!=3 ? "gray" : "red"}-700 dark:border-gray-600 dark:text-white dark:hover:text-white 
+          dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white`}
+        >
+          50y
+        </button>
+        <button
+          type="button"
+          onClick={() => {setStockData(trimAllTime); setSelectedButton(4); console.log(selectedButton);}}
+          class={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 
+          rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-${selectedButton!=4 ? "gray" : "red"}-700 
+          dark:border-gray-600 dark:text-white dark:hover:text-white 
+          dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white`}
+        >
+          All time
+        </button>
       </div>
+
+
+
+      
     </>
   );
 };

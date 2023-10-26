@@ -61,6 +61,7 @@ const Products = ({ params }) => {
             />
             <h1>{data.Name}</h1>
             <p>
+            do something of this =======================
               {data.Symbol}, {data.AssetType}
             </p>
             <p>{data.Exchange}</p>
