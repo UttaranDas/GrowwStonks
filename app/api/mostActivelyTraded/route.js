@@ -3,10 +3,10 @@
 export async function GET(req, res) {
   const { searchParams } = new URL(req.url);
   const page = searchParams.get("page") || 1;
-  const apiKey = process.env.API_KEY || "demo";
+  const apiKey = process.env.API_KEY;
   const limit = 20; // Number of items per page
   const offset = (page - 1) * limit;
-
+  
   try {
     const response = await fetch(
       `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${apiKey}`

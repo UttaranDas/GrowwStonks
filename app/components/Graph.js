@@ -3,7 +3,8 @@ import "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
 const StockChart = (params) => {
-  const symbol = params.symbol || "IBM";
+  // const symbol = params.symbol || "IBM";
+  const symbol = "IBM";
   const [stockData, setStockData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [trim5, setTrim5] = useState({});
@@ -159,13 +160,14 @@ const StockChart = (params) => {
           onClick={() => {
             setStockData(trimAllTime);
             setSelectedButton(4);
+            console.log("button", selectedButton);
           }}
           className={`px-4 py-2 text-sm font-medium rounded-r-md text-gray-900 
       bg-${selectedButton !== 4 ? "gray" : "red"}-700 border-gray-600 
-      text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 
-      focus:text-white dark:bg-${selectedButton !== 4 ? "gray" : "red"}-700 
-      dark:border-gray-600 dark:text-white dark:hover:text-white 
-      dark:hover-bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white`}
+      text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white 
+      dark:bg-${selectedButton !== 4 ? "gray" : "red"}-700 dark:border-gray-600 
+      dark:text-white dark:hover:text-white dark:hover-bg-gray-600 dark:focus:ring-blue-500 
+      dark:focus:text-white`}
         >
           All time
         </button>
